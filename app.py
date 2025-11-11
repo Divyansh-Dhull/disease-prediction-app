@@ -8,21 +8,21 @@ st.set_page_config(page_title="Multi-Disease Predictor", layout="wide")
 # --- LOAD SAVED MODELS AND SCALERS ---
 try:
     # Diabetes
-    with open('saved_models/diabetes_model.pkl', 'rb') as f:
+    with open('diabetes_model.pkl', 'rb') as f:
         diabetes_model = pickle.load(f)
-    with open('saved_models/diabetes_scaler.pkl', 'rb') as f:
+    with open('diabetes_scaler.pkl', 'rb') as f:
         diabetes_scaler = pickle.load(f)
 
     # Heart Disease
-    with open('saved_models/heart_model.pkl', 'rb') as f:
+    with open('heart_model.pkl', 'rb') as f:
         heart_model = pickle.load(f)
-    with open('saved_models/heart_scaler.pkl', 'rb') as f:
+    with open('heart_scaler.pkl', 'rb') as f:
         heart_scaler = pickle.load(f)
 
     # Parkinson's
-    with open('saved_models/parkinsons_model.pkl', 'rb') as f:
+    with open('parkinsons_model.pkl', 'rb') as f:
         parkinsons_model = pickle.load(f)
-    with open('saved_models/parkinsons_scaler.pkl', 'rb') as f:
+    with open('parkinsons_scaler.pkl', 'rb') as f:
         parkinsons_scaler = pickle.load(f)
 
 except FileNotFoundError:
