@@ -20,6 +20,7 @@ def load_css():
         /* Main background */
         [data-testid="stAppViewContainer"] {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #212121; /* <-- THIS IS THE FIX: Sets all text to dark grey */
         }
 
         /* Sidebar */
