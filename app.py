@@ -13,20 +13,32 @@ st.set_page_config(
 )
 
 # --- CUSTOM CSS ---
-# This is new! We're injecting custom CSS to make it look modern.
 def load_css():
     st.markdown("""
     <style>
         /* Main background */
         [data-testid="stAppViewContainer"] {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #212121; /* <-- THIS IS THE FIX: Sets all text to dark grey */
+            color: #212121; /* Sets all default text to dark grey */
         }
+
+        /* --- NEW FIX HERE --- */
+        /* Force all widget labels (like 'Number of Pregnancies') to be dark */
+        [data-testid="stAppViewContainer"] label {
+            color: #212121 !important; 
+        }
+        /* --- END OF NEW FIX --- */
 
         /* Sidebar */
         [data-testid="stSidebar"] {
             background-color: #FFFFFF;
             border-right: 2px solid #E0E0E0;
+            color: #333333; /* FIX for sidebar text */
+        }
+        
+        /* Ensure sidebar radio buttons are visible */
+        [data-testid="stSidebar"] .stRadio > label {
+            color: #111111;
         }
 
         /* Prediction Buttons */
@@ -48,20 +60,34 @@ def load_css():
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        /* Result Boxes */
+        /* Result & Alert Boxes - with explicit text colors */
         [data-testid="stSuccess"] {
             background-color: #E8F5E9;
             border-left: 10px solid #4CAF50;
             border-radius: 8px;
+            color: #1B5E20; /* Dark green text */
         }
         [data-testid="stError"] {
             background-color: #FFEBEE;
             border-left: 10px solid #F44336;
             border-radius: 8px;
+            color: #B71C1C; /* Dark red text */
+        }
+        [data-testid="stWarning"] {
+            background-color: #FFF3E0; /* Light orange */
+            border-left: 10px solid #FF9800; /* Orange bar */
+            color: #E65100; /* Dark orange text */
+            border-radius: 8px;
+        }
+        [data-testid="stInfo"] {
+            background-color: #E3F2FD; /* Light blue */
+            border-left: 10px solid #2196F3; /* Blue bar */
+            color: #0D47A1; /* Dark blue text */
+            border-radius: 8px;
         }
         
         /* Titles */
-        h1, h2 {
+        h1, h2, h3 {
             color: #212121; /* Dark grey for titles */
         }
 
@@ -69,6 +95,7 @@ def load_css():
         .st-expander-header {
             font-size: 16px;
             font-weight: 500;
+            color: #212121;
         }
     </style>
     """, unsafe_allow_html=True)
