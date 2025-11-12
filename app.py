@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- FULLY FIXED CSS ---
+# --- FIXED CSS ---
 def load_css():
     st.markdown("""
     <style>
@@ -38,73 +38,6 @@ def load_css():
             max-width: 95% !important;
             box-shadow: 0 30px 90px rgba(0, 0, 0, 0.25);
             border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        /* ========================= SIDEBAR OVERLAY - DOESN'T PUSH CONTENT ========================= */
-        [data-testid="stSidebar"] {
-            background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
-            border-right: 2px solid rgba(255, 255, 255, 0.1);
-            width: 350px !important;
-            position: fixed !important;
-            left: 0 !important;
-            top: 0 !important;
-            height: 100vh !important;
-            z-index: 999999 !important;
-            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3) !important;
-        }
-        
-        [data-testid="stSidebar"] > div:first-child {
-            width: 350px !important;
-        }
-        
-        /* Sidebar collapsed state - move off screen */
-        [data-testid="stSidebar"][aria-expanded="false"] {
-            margin-left: -350px !important;
-        }
-        
-        /* Main content doesn't move when sidebar opens/closes */
-        .main {
-            margin-left: 0 !important;
-        }
-        
-        /* ========================= HIDE SIDEBAR TOGGLE BUTTON TEXT COMPLETELY ========================= */
-        /* Hide the button text for both states */
-        button[kind="header"] {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            border: none !important;
-            border-radius: 12px !important;
-            width: 50px !important;
-            height: 50px !important;
-            padding: 0 !important;
-            transition: all 0.3s ease !important;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
-        }
-        
-        button[kind="header"]:hover {
-            transform: scale(1.1) !important;
-            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6) !important;
-        }
-        
-        /* Remove all text from button */
-        button[kind="header"] * {
-            display: none !important;
-        }
-        
-        /* Add custom icon using CSS */
-        button[kind="header"]::before {
-            content: "☰" !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            font-size: 1.8rem !important;
-            color: #ffffff !important;
-            font-weight: bold !important;
-        }
-        
-        /* Sidebar close button */
-        [data-testid="stSidebar"] button[kind="header"]::before {
-            content: "✕" !important;
-            font-size: 1.5rem !important;
         }
         
         /* ========================= TYPOGRAPHY - DARK & READABLE ========================= */
@@ -140,7 +73,17 @@ def load_css():
             line-height: 1.8 !important;
         }
         
-        /* ========================= SIDEBAR STYLING ========================= */
+        /* ========================= SIDEBAR - WIDER & BETTER VISIBILITY ========================= */
+        [data-testid="stSidebar"] {
+            background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
+            border-right: 2px solid rgba(255, 255, 255, 0.1);
+            width: 350px !important;
+        }
+        
+        [data-testid="stSidebar"] > div:first-child {
+            width: 350px !important;
+        }
+        
         [data-testid="stSidebar"] h1 {
             color: #ffffff !important;
             text-align: center;
@@ -205,23 +148,14 @@ def load_css():
         }
         
         /* ========================= EXPANDERS - CLEAN ICONS NO TEXT ========================= */
-        /* Hide all expander icons and text */
-        .streamlit-expanderHeader svg,
-        .streamlit-expanderHeader [data-testid="stMarkdownContainer"] p {
-            display: inline !important;
-        }
-        
-        /* Hide keyboard_arrow text but keep expander title */
         details summary::-webkit-details-marker {
             display: none !important;
         }
         
-        /* Remove default arrow */
         .streamlit-expanderHeader svg {
             display: none !important;
         }
         
-        /* Add custom clean arrow icon */
         .streamlit-expanderHeader {
             position: relative !important;
             padding-right: 3rem !important;
@@ -268,7 +202,7 @@ def load_css():
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
         }
         
-        /* ========================= INPUT FIELDS ========================= */
+        /* ========================= INPUT FIELDS - DARK TEXT ========================= */
         [data-testid="stNumberInput"] input,
         [data-baseweb="input"] input {
             border: 2px solid #cbd5e0 !important;
@@ -288,6 +222,7 @@ def load_css():
             outline: none !important;
         }
         
+        /* Labels - Dark and clear */
         label, [data-testid="stWidgetLabel"], [data-testid="stWidgetLabel"] p {
             color: #1a202c !important;
             font-weight: 600 !important;
@@ -295,6 +230,7 @@ def load_css():
             margin-bottom: 0.6rem !important;
         }
         
+        /* Selectbox - Dark text */
         [data-baseweb="select"] > div {
             border: 2px solid #cbd5e0 !important;
             border-radius: 12px !important;
@@ -342,7 +278,7 @@ def load_css():
             color: #4a5568 !important;
         }
         
-        /* ========================= RESULT BOXES ========================= */
+        /* ========================= RESULT BOXES - DARK TEXT ========================= */
         [data-testid="stSuccess"] {
             background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important;
             border-left: 6px solid #28a745 !important;
@@ -486,9 +422,6 @@ def load_css():
             }
             [data-testid="stSidebar"] {
                 width: 280px !important;
-            }
-            [data-testid="stSidebar"][aria-expanded="false"] {
-                margin-left: -280px !important;
             }
         }
     </style>
