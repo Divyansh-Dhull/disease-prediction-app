@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- MODERN ENHANCED CSS ---
+# --- ENHANCED CSS WITH ALL FIXES ---
 def load_css():
     st.markdown("""
     <style>
@@ -47,9 +47,9 @@ def load_css():
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
-        /* ========================= TYPOGRAPHY ========================= */
+        /* ========================= TYPOGRAPHY - DARKER FOR BETTER READABILITY ========================= */
         h1 {
-            color: #2d3748 !important;
+            color: #1a202c !important;
             font-weight: 800 !important;
             font-size: 3rem !important;
             margin-bottom: 1rem !important;
@@ -60,7 +60,7 @@ def load_css():
         }
         
         h2 {
-            color: #4a5568 !important;
+            color: #2d3748 !important;
             font-weight: 700 !important;
             font-size: 1.9rem !important;
             margin-top: 2rem !important;
@@ -68,56 +68,129 @@ def load_css():
         }
         
         h3 {
-            color: #5a67d8 !important;
+            color: #4a5568 !important;
             font-weight: 600 !important;
             font-size: 1.4rem !important;
             margin-top: 1.5rem !important;
         }
         
-        p, li, label {
-            color: #2d3748 !important;
+        p, li, label, div {
+            color: #1a202c !important;
             font-size: 1rem !important;
             line-height: 1.8 !important;
         }
         
-        /* ========================= SIDEBAR MODERN STYLE ========================= */
+        /* ========================= SIDEBAR - WIDER & BETTER VISIBILITY ========================= */
         [data-testid="stSidebar"] {
             background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
             border-right: none;
+            width: 350px !important;
+            min-width: 350px !important;
+        }
+        
+        /* Fix sidebar content container width */
+        [data-testid="stSidebar"] > div:first-child {
+            width: 350px !important;
+            min-width: 350px !important;
         }
         
         [data-testid="stSidebar"] h1 {
             color: #ffffff !important;
             text-align: center;
-            padding: 1.5rem 0;
-            -webkit-text-fill-color: white;
+            padding: 1.5rem 1rem;
+            -webkit-text-fill-color: white !important;
+            font-size: 1.8rem !important;
+            line-height: 1.3 !important;
         }
         
-        /* Style radio buttons as cards */
+        /* HIDE "keyboard_double_arrow_right" text for sidebar toggle */
+        [data-testid="stSidebar"] button[kind="secondary"] span {
+            font-size: 0 !important;
+        }
+        
+        [data-testid="stSidebar"] button[kind="secondary"] span::before {
+            content: "≡";
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffffff;
+            display: inline-block;
+        }
+        
+        /* Style the collapse button */
+        [data-testid="stSidebar"] button[kind="secondary"] {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 2px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 12px !important;
+            padding: 0.8rem !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        [data-testid="stSidebar"] button[kind="secondary"]:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            transform: scale(1.1);
+        }
+        
+        /* Main area sidebar toggle button */
+        button[kind="secondary"]:not([data-testid="stSidebar"] button) {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            border: none !important;
+            border-radius: 12px !important;
+            padding: 0.8rem 1rem !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        button[kind="secondary"]:not([data-testid="stSidebar"] button):hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Hide keyboard arrow text and replace with icon */
+        button[kind="secondary"] span {
+            font-size: 0 !important;
+        }
+        
+        button[kind="secondary"] span::before {
+            content: "☰";
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            display: inline-block;
+        }
+        
+        /* ========================= RADIO BUTTONS - HIGH CONTRAST TEXT ========================= */
         [data-testid="stSidebar"] div[role="radiogroup"] {
             gap: 0.8rem;
         }
         
         [data-testid="stSidebar"] div[role="radiogroup"] label {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%) !important;
-            border: 2px solid rgba(255, 255, 255, 0.1) !important;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%) !important;
+            border: 2px solid rgba(255, 255, 255, 0.2) !important;
             border-radius: 16px !important;
             padding: 1.2rem 1rem !important;
             margin: 0.4rem 0 !important;
             cursor: pointer !important;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
             text-align: center !important;
-            color: #e2e8f0 !important;
+            color: #ffffff !important;
             font-weight: 600 !important;
-            font-size: 1.1rem !important;
+            font-size: 1.15rem !important;
             backdrop-filter: blur(10px) !important;
         }
         
+        /* Make text in radio buttons highly visible */
+        [data-testid="stSidebar"] div[role="radiogroup"] label p,
+        [data-testid="stSidebar"] div[role="radiogroup"] label div,
+        [data-testid="stSidebar"] div[role="radiogroup"] label span {
+            color: #ffffff !important;
+            font-weight: 600 !important;
+        }
+        
         [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%) !important;
-            border-color: rgba(255, 255, 255, 0.4) !important;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.4) 0%, rgba(118, 75, 162, 0.4) 100%) !important;
+            border-color: rgba(255, 255, 255, 0.5) !important;
             transform: translateX(8px) scale(1.02) !important;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4) !important;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5) !important;
         }
         
         /* Hide radio circle */
@@ -132,8 +205,38 @@ def load_css():
         [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
             border-color: #ffffff !important;
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6) !important;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.7) !important;
             transform: translateX(10px) scale(1.05) !important;
+        }
+        
+        /* Ensure active text is also white */
+        [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p,
+        [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) div,
+        [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) span {
+            color: #ffffff !important;
+        }
+        
+        /* ========================= EXPANDER ARROWS - REPLACE TEXT WITH ICONS ========================= */
+        /* Hide "keyboard_arrow_right" text */
+        .streamlit-expanderHeader svg {
+            display: none !important;
+        }
+        
+        summary::-webkit-details-marker {
+            display: none !important;
+        }
+        
+        .streamlit-expanderHeader::after {
+            content: "▶";
+            position: absolute;
+            right: 1rem;
+            font-size: 1.2rem;
+            color: #4a5568;
+            transition: transform 0.3s ease;
+        }
+        
+        details[open] .streamlit-expanderHeader::after {
+            content: "▼";
         }
         
         /* ========================= BUTTONS ========================= */
@@ -186,12 +289,12 @@ def load_css():
         /* ========================= INPUT FIELDS ========================= */
         [data-testid="stNumberInput"] input,
         [data-baseweb="input"] input {
-            border: 2px solid #e2e8f0 !important;
+            border: 2px solid #cbd5e0 !important;
             border-radius: 12px !important;
             padding: 1rem !important;
             font-size: 1rem !important;
-            color: #2d3748 !important;
-            background: #f7fafc !important;
+            color: #1a202c !important;
+            background: #ffffff !important;
             transition: all 0.3s ease !important;
         }
         
@@ -199,39 +302,44 @@ def load_css():
         [data-baseweb="input"] input:focus {
             border-color: #667eea !important;
             background: #ffffff !important;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1) !important;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15) !important;
             outline: none !important;
             transform: scale(1.01);
         }
         
-        /* Labels */
-        label, [data-testid="stWidgetLabel"] {
-            color: #2d3748 !important;
+        /* Labels - Darker for better readability */
+        label, [data-testid="stWidgetLabel"], [data-testid="stWidgetLabel"] p {
+            color: #1a202c !important;
             font-weight: 600 !important;
-            font-size: 1rem !important;
+            font-size: 1.05rem !important;
             margin-bottom: 0.6rem !important;
         }
         
         /* Selectbox */
         [data-baseweb="select"] > div {
-            border: 2px solid #e2e8f0 !important;
+            border: 2px solid #cbd5e0 !important;
             border-radius: 12px !important;
-            background: #f7fafc !important;
+            background: #ffffff !important;
             transition: all 0.3s ease !important;
         }
         
         [data-baseweb="select"] > div:hover {
-            border-color: #cbd5e0 !important;
+            border-color: #a0aec0 !important;
         }
         
         [data-baseweb="select"] > div:focus-within {
             border-color: #667eea !important;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1) !important;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15) !important;
+        }
+        
+        /* Selectbox text */
+        [data-baseweb="select"] div {
+            color: #1a202c !important;
         }
         
         /* ========================= CARDS ========================= */
         .disease-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
             border-radius: 20px;
             padding: 2rem;
             margin: 1rem 0;
@@ -249,6 +357,11 @@ def load_css():
         .disease-card h3 {
             margin-top: 0 !important;
             margin-bottom: 1rem !important;
+            color: #2d3748 !important;
+        }
+        
+        .disease-card p {
+            color: #4a5568 !important;
         }
         
         /* ========================= RESULT BOXES ========================= */
@@ -261,6 +374,10 @@ def load_css():
             animation: slideIn 0.5s ease;
         }
         
+        [data-testid="stSuccess"] p, [data-testid="stSuccess"] div {
+            color: #155724 !important;
+        }
+        
         [data-testid="stError"] {
             background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%) !important;
             border-left: 6px solid #dc3545 !important;
@@ -268,6 +385,10 @@ def load_css():
             padding: 1.8rem !important;
             box-shadow: 0 8px 25px rgba(220, 53, 69, 0.2) !important;
             animation: slideIn 0.5s ease;
+        }
+        
+        [data-testid="stError"] p, [data-testid="stError"] div {
+            color: #721c24 !important;
         }
         
         [data-testid="stWarning"] {
@@ -279,6 +400,10 @@ def load_css():
             animation: slideIn 0.5s ease;
         }
         
+        [data-testid="stWarning"] p, [data-testid="stWarning"] div {
+            color: #856404 !important;
+        }
+        
         [data-testid="stInfo"] {
             background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%) !important;
             border-left: 6px solid #17a2b8 !important;
@@ -286,6 +411,10 @@ def load_css():
             padding: 1.8rem !important;
             box-shadow: 0 8px 25px rgba(23, 162, 184, 0.2) !important;
             animation: slideIn 0.5s ease;
+        }
+        
+        [data-testid="stInfo"] p, [data-testid="stInfo"] div {
+            color: #0c5460 !important;
         }
         
         @keyframes slideIn {
@@ -304,14 +433,21 @@ def load_css():
             background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%) !important;
             border-radius: 12px !important;
             font-weight: 600 !important;
-            color: #2d3748 !important;
-            border: 2px solid #e2e8f0 !important;
+            color: #1a202c !important;
+            border: 2px solid #cbd5e0 !important;
             transition: all 0.3s ease !important;
+            position: relative !important;
+            padding-right: 3rem !important;
+        }
+        
+        .streamlit-expanderHeader p {
+            color: #1a202c !important;
+            font-weight: 600 !important;
         }
         
         .streamlit-expanderHeader:hover {
             background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%) !important;
-            border-color: #cbd5e0 !important;
+            border-color: #a0aec0 !important;
             transform: scale(1.01);
         }
         
@@ -321,6 +457,10 @@ def load_css():
             border-top: none !important;
             border-radius: 0 0 12px 12px !important;
             padding: 1.5rem !important;
+        }
+        
+        .streamlit-expanderContent p, .streamlit-expanderContent li {
+            color: #2d3748 !important;
         }
         
         /* ========================= DIVIDER ========================= */
@@ -376,11 +516,26 @@ def load_css():
             50% { transform: scale(1.02); }
         }
         
+        /* ========================= SIDEBAR INFO BOX ========================= */
+        [data-testid="stSidebar"] [data-testid="stInfo"] {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-left-color: #ffffff !important;
+        }
+        
+        [data-testid="stSidebar"] [data-testid="stInfo"] p,
+        [data-testid="stSidebar"] [data-testid="stInfo"] div {
+            color: #e2e8f0 !important;
+        }
+        
         /* ========================= MOBILE RESPONSIVE ========================= */
         @media (max-width: 768px) {
             h1 { font-size: 2rem !important; }
             h2 { font-size: 1.5rem !important; }
             .main .block-container { padding: 2rem 1.5rem; }
+            [data-testid="stSidebar"] {
+                width: 300px !important;
+                min-width: 300px !important;
+            }
         }
     </style>
     """, unsafe_allow_html=True)
@@ -408,15 +563,15 @@ except Exception as e:
     st.error(f"⚠️ Error loading models: {e}")
     st.stop()
 
-# --- NAVIGATION (FIXED - No session state dependency) ---
+# --- NAVIGATION ---
 st.sidebar.title("🩺 GuardianHealth")
 st.sidebar.write("---")
 
-# Direct radio button - no session state needed
+# Direct radio button
 selection = st.sidebar.radio(
     "Navigate",
     ["🏠 Home", "🍬 Diabetes", "❤️ Heart Disease", "🧠 Parkinson's"],
-    index=0,  # Default to Home
+    index=0,
     label_visibility="collapsed"
 )
 
