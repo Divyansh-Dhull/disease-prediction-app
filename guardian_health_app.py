@@ -434,9 +434,6 @@ def load_css():
 load_css()
 
 # --- LOAD MODELS AND SCALERS ---
-st.subheader("🕵 DEBUGGING INFO")
-st.write(f"*Current Working Directory:* {os.getcwd()}")
-st.write(f"*Files in this directory:* {os.listdir()}")
 try:
     with open('diabetes_model.pkl', 'rb') as f:
         diabetes_model = pickle.load(f)
@@ -477,7 +474,6 @@ st.sidebar.info(
 
 # --- HOME PAGE ---
 if selection == "🏠 Home":
-    st.error("This is a test. If you see this I'm editing the correct file.")
     st.title("🩺 GuardianHealth: AI-Powered Disease Prediction")
     st.write("""
     ### Your Personal Health Risk Assessment Platform
