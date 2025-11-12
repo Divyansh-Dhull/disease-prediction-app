@@ -120,18 +120,15 @@ def load_css():
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4) !important;
         }
         
-        [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"] div:first-child {
-            display: none !important;
-        }
-        
         /* Hide radio circle */
         [data-testid="stSidebar"] input[type="radio"] {
             opacity: 0 !important;
             width: 0 !important;
             height: 0 !important;
+            position: absolute !important;
         }
         
-        /* Active state */
+        /* Active state - when radio is checked */
         [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
             border-color: #ffffff !important;
@@ -411,14 +408,15 @@ except Exception as e:
     st.error(f"⚠️ Error loading models: {e}")
     st.stop()
 
-# --- SIMPLIFIED NAVIGATION (FIXED FOR DEPLOYMENT) ---
+# --- NAVIGATION (FIXED - No session state dependency) ---
 st.sidebar.title("🩺 GuardianHealth")
 st.sidebar.write("---")
 
-# Use simple radio button with custom CSS styling
+# Direct radio button - no session state needed
 selection = st.sidebar.radio(
     "Navigate",
     ["🏠 Home", "🍬 Diabetes", "❤️ Heart Disease", "🧠 Parkinson's"],
+    index=0,  # Default to Home
     label_visibility="collapsed"
 )
 
@@ -430,7 +428,7 @@ st.sidebar.info(
 )
 
 # --- DISPLAY SELECTED PAGE ---
-selection = st.session_state.page
+# Now 'selection' comes directly from radio button, not session state
 
 # --- HOME PAGE ---
 if selection == "🏠 Home":
