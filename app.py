@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- ENHANCED CSS WITH ALL FIXES ---
+# --- FULLY FIXED CSS ---
 def load_css():
     st.markdown("""
     <style>
@@ -22,32 +22,92 @@ def load_css():
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
         }
         
-        /* ========================= BACKGROUND ========================= */
+        /* ========================= STATIC BACKGROUND - NO ANIMATION ========================= */
         [data-testid="stAppViewContainer"] {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
         }
         
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* ========================= MAIN CONTAINER ========================= */
+        /* ========================= WIDER MAIN CONTAINER ========================= */
         .main .block-container {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             border-radius: 30px;
-            padding: 3rem 2.5rem;
-            margin: 2rem auto;
-            max-width: 1400px;
+            padding: 3rem 3rem;
+            margin: 1.5rem auto;
+            max-width: 95% !important;
             box-shadow: 0 30px 90px rgba(0, 0, 0, 0.25);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
-        /* ========================= TYPOGRAPHY - DARKER FOR BETTER READABILITY ========================= */
+        /* ========================= SIDEBAR OVERLAY - DOESN'T PUSH CONTENT ========================= */
+        [data-testid="stSidebar"] {
+            background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
+            border-right: 2px solid rgba(255, 255, 255, 0.1);
+            width: 350px !important;
+            position: fixed !important;
+            left: 0 !important;
+            top: 0 !important;
+            height: 100vh !important;
+            z-index: 999999 !important;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        [data-testid="stSidebar"] > div:first-child {
+            width: 350px !important;
+        }
+        
+        /* Sidebar collapsed state - move off screen */
+        [data-testid="stSidebar"][aria-expanded="false"] {
+            margin-left: -350px !important;
+        }
+        
+        /* Main content doesn't move when sidebar opens/closes */
+        .main {
+            margin-left: 0 !important;
+        }
+        
+        /* ========================= HIDE SIDEBAR TOGGLE BUTTON TEXT COMPLETELY ========================= */
+        /* Hide the button text for both states */
+        button[kind="header"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            border: none !important;
+            border-radius: 12px !important;
+            width: 50px !important;
+            height: 50px !important;
+            padding: 0 !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
+        }
+        
+        button[kind="header"]:hover {
+            transform: scale(1.1) !important;
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6) !important;
+        }
+        
+        /* Remove all text from button */
+        button[kind="header"] * {
+            display: none !important;
+        }
+        
+        /* Add custom icon using CSS */
+        button[kind="header"]::before {
+            content: "☰" !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 1.8rem !important;
+            color: #ffffff !important;
+            font-weight: bold !important;
+        }
+        
+        /* Sidebar close button */
+        [data-testid="stSidebar"] button[kind="header"]::before {
+            content: "✕" !important;
+            font-size: 1.5rem !important;
+        }
+        
+        /* ========================= TYPOGRAPHY - DARK & READABLE ========================= */
         h1 {
             color: #1a202c !important;
             font-weight: 800 !important;
@@ -80,85 +140,17 @@ def load_css():
             line-height: 1.8 !important;
         }
         
-        /* ========================= SIDEBAR - WIDER & BETTER VISIBILITY ========================= */
-        [data-testid="stSidebar"] {
-            background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
-            border-right: none;
-            width: 350px !important;
-            min-width: 350px !important;
-        }
-        
-        /* Fix sidebar content container width */
-        [data-testid="stSidebar"] > div:first-child {
-            width: 350px !important;
-            min-width: 350px !important;
-        }
-        
+        /* ========================= SIDEBAR STYLING ========================= */
         [data-testid="stSidebar"] h1 {
             color: #ffffff !important;
             text-align: center;
             padding: 1.5rem 1rem;
             -webkit-text-fill-color: white !important;
-            font-size: 1.8rem !important;
+            font-size: 1.7rem !important;
             line-height: 1.3 !important;
         }
         
-        /* HIDE "keyboard_double_arrow_right" text for sidebar toggle */
-        [data-testid="stSidebar"] button[kind="secondary"] span {
-            font-size: 0 !important;
-        }
-        
-        [data-testid="stSidebar"] button[kind="secondary"] span::before {
-            content: "≡";
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ffffff;
-            display: inline-block;
-        }
-        
-        /* Style the collapse button */
-        [data-testid="stSidebar"] button[kind="secondary"] {
-            background: rgba(255, 255, 255, 0.1) !important;
-            border: 2px solid rgba(255, 255, 255, 0.2) !important;
-            border-radius: 12px !important;
-            padding: 0.8rem !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        [data-testid="stSidebar"] button[kind="secondary"]:hover {
-            background: rgba(255, 255, 255, 0.2) !important;
-            border-color: rgba(255, 255, 255, 0.4) !important;
-            transform: scale(1.1);
-        }
-        
-        /* Main area sidebar toggle button */
-        button[kind="secondary"]:not([data-testid="stSidebar"] button) {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            border: none !important;
-            border-radius: 12px !important;
-            padding: 0.8rem 1rem !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        button[kind="secondary"]:not([data-testid="stSidebar"] button):hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        /* Hide keyboard arrow text and replace with icon */
-        button[kind="secondary"] span {
-            font-size: 0 !important;
-        }
-        
-        button[kind="secondary"] span::before {
-            content: "☰";
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ffffff;
-            display: inline-block;
-        }
-        
-        /* ========================= RADIO BUTTONS - HIGH CONTRAST TEXT ========================= */
+        /* ========================= RADIO BUTTONS - HIGH VISIBILITY ========================= */
         [data-testid="stSidebar"] div[role="radiogroup"] {
             gap: 0.8rem;
         }
@@ -178,7 +170,6 @@ def load_css():
             backdrop-filter: blur(10px) !important;
         }
         
-        /* Make text in radio buttons highly visible */
         [data-testid="stSidebar"] div[role="radiogroup"] label p,
         [data-testid="stSidebar"] div[role="radiogroup"] label div,
         [data-testid="stSidebar"] div[role="radiogroup"] label span {
@@ -193,7 +184,6 @@ def load_css():
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5) !important;
         }
         
-        /* Hide radio circle */
         [data-testid="stSidebar"] input[type="radio"] {
             opacity: 0 !important;
             width: 0 !important;
@@ -201,7 +191,6 @@ def load_css():
             position: absolute !important;
         }
         
-        /* Active state - when radio is checked */
         [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
             border-color: #ffffff !important;
@@ -209,34 +198,49 @@ def load_css():
             transform: translateX(10px) scale(1.05) !important;
         }
         
-        /* Ensure active text is also white */
         [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p,
         [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) div,
         [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) span {
             color: #ffffff !important;
         }
         
-        /* ========================= EXPANDER ARROWS - REPLACE TEXT WITH ICONS ========================= */
-        /* Hide "keyboard_arrow_right" text */
+        /* ========================= EXPANDERS - CLEAN ICONS NO TEXT ========================= */
+        /* Hide all expander icons and text */
+        .streamlit-expanderHeader svg,
+        .streamlit-expanderHeader [data-testid="stMarkdownContainer"] p {
+            display: inline !important;
+        }
+        
+        /* Hide keyboard_arrow text but keep expander title */
+        details summary::-webkit-details-marker {
+            display: none !important;
+        }
+        
+        /* Remove default arrow */
         .streamlit-expanderHeader svg {
             display: none !important;
         }
         
-        summary::-webkit-details-marker {
-            display: none !important;
+        /* Add custom clean arrow icon */
+        .streamlit-expanderHeader {
+            position: relative !important;
+            padding-right: 3rem !important;
         }
         
         .streamlit-expanderHeader::after {
-            content: "▶";
-            position: absolute;
-            right: 1rem;
-            font-size: 1.2rem;
-            color: #4a5568;
-            transition: transform 0.3s ease;
+            content: "▶" !important;
+            position: absolute !important;
+            right: 1.2rem !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            font-size: 1rem !important;
+            color: #667eea !important;
+            transition: transform 0.3s ease !important;
+            font-weight: bold !important;
         }
         
         details[open] .streamlit-expanderHeader::after {
-            content: "▼";
+            transform: translateY(-50%) rotate(90deg) !important;
         }
         
         /* ========================= BUTTONS ========================= */
@@ -258,32 +262,10 @@ def load_css():
             overflow: hidden;
         }
         
-        .stButton > button:before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .stButton > button:hover:before {
-            width: 400px;
-            height: 400px;
-        }
-        
         .stButton > button:hover {
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-        }
-        
-        .stButton > button:active {
-            transform: translateY(-2px);
         }
         
         /* ========================= INPUT FIELDS ========================= */
@@ -304,10 +286,8 @@ def load_css():
             background: #ffffff !important;
             box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15) !important;
             outline: none !important;
-            transform: scale(1.01);
         }
         
-        /* Labels - Darker for better readability */
         label, [data-testid="stWidgetLabel"], [data-testid="stWidgetLabel"] p {
             color: #1a202c !important;
             font-weight: 600 !important;
@@ -315,7 +295,6 @@ def load_css():
             margin-bottom: 0.6rem !important;
         }
         
-        /* Selectbox */
         [data-baseweb="select"] > div {
             border: 2px solid #cbd5e0 !important;
             border-radius: 12px !important;
@@ -332,7 +311,6 @@ def load_css():
             box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15) !important;
         }
         
-        /* Selectbox text */
         [data-baseweb="select"] div {
             color: #1a202c !important;
         }
@@ -371,7 +349,6 @@ def load_css():
             border-radius: 16px !important;
             padding: 1.8rem !important;
             box-shadow: 0 8px 25px rgba(40, 167, 69, 0.2) !important;
-            animation: slideIn 0.5s ease;
         }
         
         [data-testid="stSuccess"] p, [data-testid="stSuccess"] div {
@@ -384,7 +361,6 @@ def load_css():
             border-radius: 16px !important;
             padding: 1.8rem !important;
             box-shadow: 0 8px 25px rgba(220, 53, 69, 0.2) !important;
-            animation: slideIn 0.5s ease;
         }
         
         [data-testid="stError"] p, [data-testid="stError"] div {
@@ -397,7 +373,6 @@ def load_css():
             border-radius: 16px !important;
             padding: 1.8rem !important;
             box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2) !important;
-            animation: slideIn 0.5s ease;
         }
         
         [data-testid="stWarning"] p, [data-testid="stWarning"] div {
@@ -410,25 +385,13 @@ def load_css():
             border-radius: 16px !important;
             padding: 1.8rem !important;
             box-shadow: 0 8px 25px rgba(23, 162, 184, 0.2) !important;
-            animation: slideIn 0.5s ease;
         }
         
         [data-testid="stInfo"] p, [data-testid="stInfo"] div {
             color: #0c5460 !important;
         }
         
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* ========================= EXPANDERS ========================= */
+        /* ========================= EXPANDER STYLING ========================= */
         .streamlit-expanderHeader {
             background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%) !important;
             border-radius: 12px !important;
@@ -436,8 +399,6 @@ def load_css():
             color: #1a202c !important;
             border: 2px solid #cbd5e0 !important;
             transition: all 0.3s ease !important;
-            position: relative !important;
-            padding-right: 3rem !important;
         }
         
         .streamlit-expanderHeader p {
@@ -448,7 +409,6 @@ def load_css():
         .streamlit-expanderHeader:hover {
             background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%) !important;
             border-color: #a0aec0 !important;
-            transform: scale(1.01);
         }
         
         .streamlit-expanderContent {
@@ -472,9 +432,28 @@ def load_css():
             opacity: 0.3;
         }
         
-        /* ========================= SPINNER ========================= */
-        .stSpinner > div {
-            border-top-color: #667eea !important;
+        /* ========================= BMI DISPLAY ========================= */
+        .bmi-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            margin: 1rem 0;
+        }
+        
+        /* ========================= SIDEBAR INFO BOX ========================= */
+        [data-testid="stSidebar"] [data-testid="stInfo"] {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-left-color: #ffffff !important;
+        }
+        
+        [data-testid="stSidebar"] [data-testid="stInfo"] p,
+        [data-testid="stSidebar"] [data-testid="stInfo"] div {
+            color: #e2e8f0 !important;
         }
         
         /* ========================= SCROLLBAR ========================= */
@@ -497,44 +476,19 @@ def load_css():
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
         }
         
-        /* ========================= BMI DISPLAY ========================= */
-        .bmi-display {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white !important;
-            padding: 1.5rem;
-            border-radius: 16px;
-            text-align: center;
-            font-size: 1.3rem;
-            font-weight: 700;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-            margin: 1rem 0;
-            animation: pulse 2s ease infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-        
-        /* ========================= SIDEBAR INFO BOX ========================= */
-        [data-testid="stSidebar"] [data-testid="stInfo"] {
-            background: rgba(255, 255, 255, 0.1) !important;
-            border-left-color: #ffffff !important;
-        }
-        
-        [data-testid="stSidebar"] [data-testid="stInfo"] p,
-        [data-testid="stSidebar"] [data-testid="stInfo"] div {
-            color: #e2e8f0 !important;
-        }
-        
         /* ========================= MOBILE RESPONSIVE ========================= */
         @media (max-width: 768px) {
             h1 { font-size: 2rem !important; }
             h2 { font-size: 1.5rem !important; }
-            .main .block-container { padding: 2rem 1.5rem; }
+            .main .block-container { 
+                padding: 2rem 1.5rem; 
+                max-width: 100% !important;
+            }
             [data-testid="stSidebar"] {
-                width: 300px !important;
-                min-width: 300px !important;
+                width: 280px !important;
+            }
+            [data-testid="stSidebar"][aria-expanded="false"] {
+                margin-left: -280px !important;
             }
         }
     </style>
@@ -567,7 +521,6 @@ except Exception as e:
 st.sidebar.title("🩺 GuardianHealth")
 st.sidebar.write("---")
 
-# Direct radio button
 selection = st.sidebar.radio(
     "Navigate",
     ["🏠 Home", "🍬 Diabetes", "❤️ Heart Disease", "🧠 Parkinson's"],
@@ -581,9 +534,6 @@ st.sidebar.info(
     "This tool is for educational and informational purposes only. "
     "Always consult qualified healthcare professionals for medical advice, diagnosis, and treatment."
 )
-
-# --- DISPLAY SELECTED PAGE ---
-# Now 'selection' comes directly from radio button, not session state
 
 # --- HOME PAGE ---
 if selection == "🏠 Home":
