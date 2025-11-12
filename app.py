@@ -11,365 +11,384 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- ENHANCED CUSTOM CSS WITH FIXED VISIBILITY ---
+# --- MODERN ENHANCED CSS ---
 def load_css():
     st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
         
-        /* =========================
-           GLOBAL FONT & TEXT FIXES
-           ========================= */
-        html, body, [class*="css"], [data-testid="stAppViewContainer"], 
-        .stApp, p, div, span, label, input, select, textarea, button, h1, h2, h3, h4, h5, h6,
-        .stMarkdown, .stText {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-            letter-spacing: -0.01em;
+        /* ========================= GLOBAL RESET ========================= */
+        * {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
         }
-
-        /* =========================
-           BACKGROUND & CONTAINER
-           ========================= */
+        
+        /* ========================= BACKGROUND ========================= */
         [data-testid="stAppViewContainer"] {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e57c2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
         }
         
-        /* White content wrapper with proper spacing */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* ========================= MAIN CONTAINER ========================= */
         .main .block-container {
-            background: #ffffff;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
             padding: 3rem 2.5rem;
-            margin: 1.5rem auto;
+            margin: 2rem auto;
             max-width: 1400px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-
-        /* =========================
-           TITLE & HEADING FIXES
-           ========================= */
-        /* Main title - Dark and Bold */
+        
+        /* ========================= TYPOGRAPHY ========================= */
         h1 {
-            color: #1a1a2e !important;
-            font-weight: 800 !important;
-            font-size: 2.8rem !important;
-            margin-bottom: 1.5rem !important;
-            text-align: left !important;
-            line-height: 1.2 !important;
-            text-shadow: none !important;
-        }
-
-        /* Subtitle */
-        h2 {
             color: #2d3748 !important;
-            font-weight: 700 !important;
-            font-size: 1.8rem !important;
-            margin-top: 2rem !important;
+            font-weight: 800 !important;
+            font-size: 3rem !important;
             margin-bottom: 1rem !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        /* Section headers */
-        h3 {
+        
+        h2 {
             color: #4a5568 !important;
+            font-weight: 700 !important;
+            font-size: 1.9rem !important;
+            margin-top: 2rem !important;
+            margin-bottom: 1.2rem !important;
+        }
+        
+        h3 {
+            color: #5a67d8 !important;
             font-weight: 600 !important;
-            font-size: 1.3rem !important;
+            font-size: 1.4rem !important;
             margin-top: 1.5rem !important;
         }
-
-        /* =========================
-           LABEL & INPUT FIXES
-           ========================= */
-        /* ALL labels dark and readable */
-        label, [data-testid="stWidgetLabel"], 
-        .stSelectbox label, .stNumberInput label, 
-        .stRadio label, div[data-baseweb="select"] label, 
-        .stTextInput label {
-            color: #1a1a2e !important;
-            font-weight: 600 !important;
-            font-size: 0.95rem !important;
-            margin-bottom: 0.5rem !important;
-            line-height: 1.5 !important;
-        }
-
-        /* Input text color */
-        input, select, textarea, [data-baseweb="input"] input {
-            color: #1a1a2e !important;
-            font-weight: 500 !important;
-            background-color: #f7fafc !important;
-        }
-
-        /* Paragraph text */
-        p, .stMarkdown p, li {
+        
+        p, li, label {
             color: #2d3748 !important;
             font-size: 1rem !important;
-            line-height: 1.7 !important;
-            margin-bottom: 0.8rem !important;
-        }
-
-        /* =========================
-           SIDEBAR STYLING
-           ========================= */
-        [data-testid="stSidebar"] {
-            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
-            border-right: none;
+            line-height: 1.8 !important;
         }
         
-        [data-testid="stSidebar"] * {
-            color: #ffffff !important;
+        /* ========================= SIDEBAR MODERN STYLE ========================= */
+        [data-testid="stSidebar"] {
+            background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
+            border-right: none;
         }
         
         [data-testid="stSidebar"] h1 {
             color: #ffffff !important;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-align: center;
+            padding: 1.5rem 0;
+            -webkit-text-fill-color: white;
         }
         
-        /* Radio buttons in sidebar - styled as buttons */
-        [data-testid="stSidebar"] [role="radiogroup"] {
-            gap: 0.5rem;
-        }
-        
+        /* Hide default radio buttons completely */
         [data-testid="stSidebar"] [role="radiogroup"] label {
-            background: rgba(255, 255, 255, 0.1) !important;
-            color: #ffffff !important;
-            padding: 1rem !important;
-            border-radius: 12px !important;
-            transition: all 0.3s ease !important;
-            border: 2px solid transparent !important;
-            cursor: pointer !important;
-            font-weight: 600 !important;
-            font-size: 1rem !important;
+            display: none !important;
         }
         
-        [data-testid="stSidebar"] [role="radiogroup"] label:hover {
-            background: rgba(255, 255, 255, 0.2) !important;
-            border-color: rgba(255, 255, 255, 0.4) !important;
-            transform: translateX(5px);
-        }
-        
-        /* Selected radio button */
-        [data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            border-color: #ffffff !important;
-        }
-
-        /* Hide default radio circles */
         [data-testid="stSidebar"] input[type="radio"] {
             display: none !important;
         }
-
-        /* =========================
-           BUTTON STYLING
-           ========================= */
+        
+        /* Custom navigation cards */
+        .nav-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.2rem 1rem;
+            margin: 0.8rem 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            color: #e2e8f0 !important;
+            font-weight: 600;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-card:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateX(8px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .nav-card-active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            border-color: #ffffff !important;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6) !important;
+            transform: translateX(10px) scale(1.05);
+        }
+        
+        .nav-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+        
+        /* ========================= BUTTONS ========================= */
         .stButton > button {
             width: 100%;
             border: none;
-            border-radius: 12px;
+            border-radius: 16px;
             color: #FFFFFF !important;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 1.2rem 2rem;
-            font-size: 1.15rem !important;
+            padding: 1.3rem 2rem;
+            font-size: 1.2rem !important;
             font-weight: 700 !important;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-            margin-top: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            margin-top: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stButton > button:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .stButton > button:hover:before {
+            width: 400px;
+            height: 400px;
         }
         
         .stButton > button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
         }
-
-        /* =========================
-           RESULT BOXES - FIXED TEXT
-           ========================= */
-        [data-testid="stSuccess"] {
-            background: #d4edda !important;
-            border-left: 6px solid #28a745 !important;
-            border-radius: 12px !important;
-            padding: 1.5rem !important;
-            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2) !important;
+        
+        .stButton > button:active {
+            transform: translateY(-2px);
         }
         
-        [data-testid="stSuccess"], [data-testid="stSuccess"] * {
-            color: #155724 !important;
+        /* ========================= INPUT FIELDS ========================= */
+        [data-testid="stNumberInput"] input,
+        [data-baseweb="input"] input {
+            border: 2px solid #e2e8f0 !important;
+            border-radius: 12px !important;
+            padding: 1rem !important;
+            font-size: 1rem !important;
+            color: #2d3748 !important;
+            background: #f7fafc !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        [data-testid="stNumberInput"] input:focus,
+        [data-baseweb="input"] input:focus {
+            border-color: #667eea !important;
+            background: #ffffff !important;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1) !important;
+            outline: none !important;
+            transform: scale(1.01);
+        }
+        
+        /* Labels */
+        label, [data-testid="stWidgetLabel"] {
+            color: #2d3748 !important;
             font-weight: 600 !important;
+            font-size: 1rem !important;
+            margin-bottom: 0.6rem !important;
+        }
+        
+        /* Selectbox */
+        [data-baseweb="select"] > div {
+            border: 2px solid #e2e8f0 !important;
+            border-radius: 12px !important;
+            background: #f7fafc !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        [data-baseweb="select"] > div:hover {
+            border-color: #cbd5e0 !important;
+        }
+        
+        [data-baseweb="select"] > div:focus-within {
+            border-color: #667eea !important;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1) !important;
+        }
+        
+        /* ========================= CARDS ========================= */
+        .disease-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid #667eea;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .disease-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-left-width: 8px;
+        }
+        
+        .disease-card h3 {
+            margin-top: 0 !important;
+            margin-bottom: 1rem !important;
+        }
+        
+        /* ========================= RESULT BOXES ========================= */
+        [data-testid="stSuccess"] {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important;
+            border-left: 6px solid #28a745 !important;
+            border-radius: 16px !important;
+            padding: 1.8rem !important;
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.2) !important;
+            animation: slideIn 0.5s ease;
         }
         
         [data-testid="stError"] {
-            background: #f8d7da !important;
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%) !important;
             border-left: 6px solid #dc3545 !important;
-            border-radius: 12px !important;
-            padding: 1.5rem !important;
-            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2) !important;
-        }
-        
-        [data-testid="stError"], [data-testid="stError"] * {
-            color: #721c24 !important;
-            font-weight: 500 !important;
+            border-radius: 16px !important;
+            padding: 1.8rem !important;
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.2) !important;
+            animation: slideIn 0.5s ease;
         }
         
         [data-testid="stWarning"] {
-            background: #fff3cd !important;
+            background: linear-gradient(135deg, #fff3cd 0%, #ffecb5 100%) !important;
             border-left: 6px solid #ffc107 !important;
-            border-radius: 12px !important;
-            padding: 1.5rem !important;
-            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2) !important;
-        }
-        
-        [data-testid="stWarning"], [data-testid="stWarning"] * {
-            color: #856404 !important;
-            font-weight: 500 !important;
+            border-radius: 16px !important;
+            padding: 1.8rem !important;
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2) !important;
+            animation: slideIn 0.5s ease;
         }
         
         [data-testid="stInfo"] {
-            background: #d1ecf1 !important;
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%) !important;
             border-left: 6px solid #17a2b8 !important;
-            border-radius: 12px !important;
-            padding: 1.5rem !important;
-            box-shadow: 0 4px 12px rgba(23, 162, 184, 0.2) !important;
+            border-radius: 16px !important;
+            padding: 1.8rem !important;
+            box-shadow: 0 8px 25px rgba(23, 162, 184, 0.2) !important;
+            animation: slideIn 0.5s ease;
         }
         
-        [data-testid="stInfo"], [data-testid="stInfo"] * {
-            color: #0c5460 !important;
-            font-weight: 500 !important;
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
-        /* Fix text overlapping in result boxes */
-        [data-testid="stSuccess"] p, [data-testid="stError"] p,
-        [data-testid="stWarning"] p, [data-testid="stInfo"] p {
-            line-height: 1.8 !important;
-            margin-bottom: 1rem !important;
-            white-space: normal !important;
-            word-wrap: break-word !important;
-        }
-
-        /* =========================
-           EXPANDER STYLING
-           ========================= */
+        
+        /* ========================= EXPANDERS ========================= */
         .streamlit-expanderHeader {
-            background: #f7fafc !important;
-            border-radius: 8px !important;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%) !important;
+            border-radius: 12px !important;
             font-weight: 600 !important;
-            color: #1a1a2e !important;
+            color: #2d3748 !important;
             border: 2px solid #e2e8f0 !important;
+            transition: all 0.3s ease !important;
         }
-
+        
         .streamlit-expanderHeader:hover {
-            background: #edf2f7 !important;
+            background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%) !important;
             border-color: #cbd5e0 !important;
+            transform: scale(1.01);
         }
-
+        
         .streamlit-expanderContent {
             background: #ffffff !important;
             border: 2px solid #e2e8f0 !important;
             border-top: none !important;
-            border-radius: 0 0 8px 8px !important;
-            padding: 1rem !important;
+            border-radius: 0 0 12px 12px !important;
+            padding: 1.5rem !important;
         }
-
-        /* =========================
-           CARD STYLING
-           ========================= */
-        .disease-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 1rem 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #667eea;
-            transition: all 0.3s ease;
-        }
-
-        .disease-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .disease-card h3 {
-            color: #1a1a2e !important;
-            margin-top: 0 !important;
-        }
-
-        .disease-card p {
-            color: #4a5568 !important;
-        }
-
-        /* =========================
-           DIVIDER
-           ========================= */
+        
+        /* ========================= DIVIDER ========================= */
         hr {
-            margin: 2.5rem 0 !important;
+            margin: 3rem 0 !important;
             border: none !important;
-            height: 2px !important;
-            background: linear-gradient(90deg, transparent, #cbd5e0, transparent) !important;
+            height: 3px !important;
+            background: linear-gradient(90deg, transparent, #667eea, #764ba2, transparent) !important;
+            opacity: 0.3;
         }
-
-        /* =========================
-           INPUT STYLING
-           ========================= */
-        [data-testid="stNumberInput"] input {
-            border-radius: 8px !important;
-            border: 2px solid #e2e8f0 !important;
-            padding: 0.75rem !important;
-            transition: all 0.3s ease !important;
-            font-size: 1rem !important;
-        }
-
-        [data-testid="stNumberInput"] input:focus {
-            border-color: #667eea !important;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
-            outline: none !important;
-        }
-
-        /* Selectbox styling */
-        [data-baseweb="select"] {
-            border-radius: 8px !important;
-        }
-
-        [data-baseweb="select"] > div {
-            border: 2px solid #e2e8f0 !important;
-            border-radius: 8px !important;
-        }
-
-        [data-baseweb="select"] > div:hover {
-            border-color: #cbd5e0 !important;
-        }
-
-        /* =========================
-           SPINNER
-           ========================= */
+        
+        /* ========================= SPINNER ========================= */
         .stSpinner > div {
             border-top-color: #667eea !important;
         }
-
-        /* =========================
-           SCROLLBAR
-           ========================= */
+        
+        /* ========================= SCROLLBAR ========================= */
         ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
         }
-
+        
         ::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 10px;
         }
-
+        
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 10px;
         }
-
+        
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+        
+        /* ========================= BMI DISPLAY ========================= */
+        .bmi-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            margin: 1rem 0;
+            animation: pulse 2s ease infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        /* ========================= MOBILE RESPONSIVE ========================= */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem !important; }
+            h2 { font-size: 1.5rem !important; }
+            .main .block-container { padding: 2rem 1.5rem; }
+            .nav-card { padding: 1rem; font-size: 1rem; }
         }
     </style>
     """, unsafe_allow_html=True)
 
 load_css()
-
 
 # --- LOAD MODELS AND SCALERS ---
 try:
@@ -386,37 +405,51 @@ try:
     with open('parkinsons_scaler.pkl', 'rb') as f:
         parkinsons_scaler = pickle.load(f)
 except FileNotFoundError:
-    st.error("Model files not found. Please ensure all .pkl files are in the root directory.")
+    st.error("⚠️ Model files not found. Please ensure all .pkl files are in the root directory.")
     st.stop()
 except Exception as e:
-    st.error(f"Error loading models: {e}")
+    st.error(f"⚠️ Error loading models: {e}")
     st.stop()
 
+# --- CUSTOM NAVIGATION WITH SESSION STATE ---
+if 'page' not in st.session_state:
+    st.session_state.page = "🏠 Home"
 
-# --- SIDEBAR NAVIGATION ---
 st.sidebar.title("🩺 GuardianHealth")
 st.sidebar.write("---")
 
-selection = st.sidebar.radio(
-    "Navigate to:",
-    [
-        "🏠 Home",
-        "🍬 Diabetes",
-        "❤️ Heart Disease",
-        "🧠 Parkinson's"
-    ],
-    label_visibility="collapsed"
-)
+# Custom navigation buttons
+nav_options = ["🏠 Home", "🍬 Diabetes", "❤️ Heart Disease", "🧠 Parkinson's"]
+
+for option in nav_options:
+    active_class = "nav-card-active" if st.session_state.page == option else ""
+    icon = option.split()[0]
+    title = " ".join(option.split()[1:])
+    
+    st.sidebar.markdown(f"""
+    <div class="nav-card {active_class}" onclick="this.click()">
+        <span class="nav-icon">{icon}</span>
+        <div>{title}</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    if st.sidebar.button(f"nav_{option}", key=f"btn_{option}", label_visibility="collapsed"):
+        st.session_state.page = option
+        st.rerun()
+
 st.sidebar.write("---")
 st.sidebar.info(
-    "**Disclaimer:** This tool is for educational purposes only. "
-    "Always consult a medical professional for health concerns."
+    "**⚕️ Medical Disclaimer**\n\n"
+    "This tool is for educational and informational purposes only. "
+    "Always consult qualified healthcare professionals for medical advice, diagnosis, and treatment."
 )
 
+# --- DISPLAY SELECTED PAGE ---
+selection = st.session_state.page
 
 # --- HOME PAGE ---
 if selection == "🏠 Home":
-    st.title("GuardianHealth: AI-Powered Disease Prediction")
+    st.title("🩺 GuardianHealth: AI-Powered Disease Prediction")
     st.write("""
     ### Your Personal Health Risk Assessment Platform
     
@@ -454,17 +487,17 @@ if selection == "🏠 Home":
 
     st.write("---")
     
-    st.subheader("How It Works")
+    st.subheader("✨ How It Works")
     
     col_a, col_b = st.columns(2)
     
     with col_a:
         st.write("""
-        **Step 1: Select a Disease Model**
+        **🎯 Step 1: Select a Disease Model**
         - Choose from the sidebar navigation
         - Review disease information and symptoms
         
-        **Step 2: Enter Medical Parameters**
+        **📝 Step 2: Enter Medical Parameters**
         - Fill in the required fields
         - Use help guides for each parameter
         - Standard values provided as defaults
@@ -472,12 +505,12 @@ if selection == "🏠 Home":
     
     with col_b:
         st.write("""
-        **Step 3: Get Your Assessment**
-        - AI analyzes your data
-        - Receive risk prediction
+        **🤖 Step 3: Get Your Assessment**
+        - AI analyzes your data instantly
+        - Receive comprehensive risk prediction
         - View personalized recommendations
         
-        **Step 4: Take Action**
+        **💡 Step 4: Take Action**
         - Follow medical advice provided
         - Consult healthcare professionals
         - Implement lifestyle changes
@@ -487,12 +520,10 @@ if selection == "🏠 Home":
     
     st.warning("⚠️ **Medical Disclaimer:** These predictions are statistical assessments based on machine learning models. They are NOT medical diagnoses and should not replace professional medical advice, diagnosis, or treatment.")
 
-
 # --- DIABETES PREDICTION PAGE ---
 elif selection == "🍬 Diabetes":
-    st.title("Type 2 Diabetes Risk Assessment")
+    st.title("🍬 Type 2 Diabetes Risk Assessment")
     
-    # Disease Information Section
     with st.expander("📚 About Type 2 Diabetes & Common Symptoms", expanded=False):
         st.write("""
         **What is Type 2 Diabetes?**
@@ -509,7 +540,7 @@ elif selection == "🍬 Diabetes":
         - Blurred vision or visual disturbances
         - Slow-healing cuts, wounds, or frequent infections
         - Tingling, numbness, or pain in hands or feet
-        - Darkened skin patches (acanthosis nigricans) in armpits or neck
+        - Darkened skin patches in armpits or neck
         - Dry, itchy skin
         
         **Major Risk Factors:**
@@ -517,14 +548,13 @@ elif selection == "🍬 Diabetes":
         - Obesity or being overweight (BMI > 25)
         - Family history of diabetes
         - Age over 45 years
-        - Physical inactivity and sedentary lifestyle
+        - Physical inactivity
         - High blood pressure (>130/80 mm Hg)
         - History of gestational diabetes
-        - Polycystic ovary syndrome (PCOS)
         """)
 
     st.write("---")
-    st.subheader("Enter Your Medical Parameters")
+    st.subheader("📊 Enter Your Medical Parameters")
 
     col1, col2, col3 = st.columns(3)
     
@@ -555,7 +585,7 @@ elif selection == "🍬 Diabetes":
 
     st.write("---")
     
-    st.subheader("BMI Calculator")
+    st.subheader("⚖️ BMI Calculator")
     
     bmi_col1, bmi_col2 = st.columns(2)
     with bmi_col1:
@@ -571,7 +601,11 @@ elif selection == "🍬 Diabetes":
             "Overweight" if calculated_bmi < 30 else
             "Obese"
         )
-        st.info(f"**Calculated BMI: {calculated_bmi:.2f}** ({bmi_category})")
+        st.markdown(f"""
+        <div class="bmi-display">
+            BMI: {calculated_bmi:.2f} - {bmi_category}
+        </div>
+        """, unsafe_allow_html=True)
     except ZeroDivisionError:
         calculated_bmi = 25.0
 
@@ -587,9 +621,9 @@ elif selection == "🍬 Diabetes":
             st.write("Family history score. Higher value = stronger genetic link. Average: ~0.47")
 
     st.write("")
-
+    
     if st.button("🔍 Analyze Diabetes Risk", key="diabetes_predict"):
-        with st.spinner("Analyzing your health data..."):
+        with st.spinner("🧪 Analyzing your health data..."):
             time.sleep(1.5)
             
             input_data = [Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]
@@ -597,7 +631,7 @@ elif selection == "🍬 Diabetes":
             prediction = diabetes_model.predict(std_data)
         
         st.write("---")
-        st.subheader("Assessment Result")
+        st.subheader("📋 Assessment Result")
         
         if prediction[0] == 0:
             st.success("✅ **Low Risk for Type 2 Diabetes**")
@@ -613,8 +647,8 @@ elif selection == "🍬 Diabetes":
             - Schedule annual health check-ups and blood sugar monitoring
             - Stay well-hydrated (8+ glasses of water daily)
             - Get 7-9 hours of quality sleep each night
-            - Manage stress through meditation, yoga, or other relaxation techniques
-            - If you have a family history, consider more frequent glucose screening
+            - Manage stress through meditation, yoga, or relaxation techniques
+            - If you have family history, consider more frequent glucose screening
             """)
         else:
             st.error("⚠️ **High Risk for Type 2 Diabetes**")
@@ -650,12 +684,6 @@ elif selection == "🍬 Diabetes":
             - Fried foods and trans fats
             - Excessive alcohol consumption
             
-            **REDUCE:**
-            - Total carbohydrate intake (especially simple carbs)
-            - Portion sizes - use smaller plates
-            - Red and processed meats
-            - Salt intake (limit to 2300mg/day)
-            
             **INCREASE:**
             - Non-starchy vegetables (broccoli, spinach, peppers)
             - Lean proteins (chicken, fish, legumes, tofu)
@@ -670,30 +698,16 @@ elif selection == "🍬 Diabetes":
             - **Start exercising immediately:** Begin with 30 minutes of walking daily
             - Gradually increase to 150+ minutes of moderate activity per week
             - Add strength training exercises 2-3 times weekly
-            - Reduce sedentary time - stand and move every hour
             - **Weight loss goal:** If overweight, aim to lose 5-10% of body weight
             - This alone can significantly reduce diabetes risk
             """)
             
             st.write("")
-            st.write("**⚠️ Warning Signs - Seek Immediate Medical Care If You Experience:**")
-            st.write("""
-            - Extreme thirst or dry mouth that won't go away
-            - Frequent urination (especially at night)
-            - Unexplained weight loss
-            - Extreme fatigue or weakness
-            - Blurred vision or visual changes
-            - Slow-healing wounds or frequent infections
-            - Tingling or numbness in hands or feet
-            """)
-            
-            st.write("")
             st.info("**Remember:** Type 2 Diabetes is preventable and manageable with early intervention. The steps you take today can significantly improve your health outcomes.")
-
 
 # --- HEART DISEASE PREDICTION PAGE ---
 elif selection == "❤️ Heart Disease":
-    st.title("Heart Disease Risk Assessment")
+    st.title("❤️ Heart Disease Risk Assessment")
     
     with st.expander("📚 About Heart Disease & Common Symptoms", expanded=False):
         st.write("""
@@ -711,9 +725,6 @@ elif selection == "❤️ Heart Disease":
         - Dizziness, lightheadedness, or fainting
         - Persistent fatigue and weakness
         - Swelling in legs, ankles, feet, or abdomen
-        - Rapid or slow heart rate
-        - Nausea or lack of appetite
-        - Cold sweats
         
         **Major Risk Factors:**
         
@@ -724,11 +735,10 @@ elif selection == "❤️ Heart Disease":
         - Obesity and physical inactivity
         - Family history of heart disease
         - Age (men 45+, women 55+)
-        - Chronic stress and poor sleep
         """)
 
     st.write("---")
-    st.subheader("Enter Your Medical Parameters")
+    st.subheader("📊 Enter Your Medical Parameters")
 
     col1, col2, col3 = st.columns(3)
 
@@ -759,7 +769,7 @@ elif selection == "❤️ Heart Disease":
         exang = st.selectbox("Exercise Induced Angina", ("Yes", "No"), index=1)
 
     st.write("---")
-    st.subheader("Advanced ECG & Test Details")
+    st.subheader("🔬 Advanced ECG & Test Details")
     col_adv1, col_adv2, col_adv3 = st.columns(3)
 
     with col_adv1:
@@ -773,7 +783,7 @@ elif selection == "❤️ Heart Disease":
     st.write("")
     
     if st.button("🔍 Analyze Heart Disease Risk", key="heart_predict"):
-        with st.spinner("Analyzing your cardiovascular data..."):
+        with st.spinner("🩺 Analyzing your cardiovascular data..."):
             time.sleep(1.5)
             
             sex_num = 1 if sex == "Male" else 0
@@ -797,7 +807,7 @@ elif selection == "❤️ Heart Disease":
             prediction = heart_model.predict(std_data)
         
         st.write("---")
-        st.subheader("Assessment Result")
+        st.subheader("📋 Assessment Result")
         
         if prediction[0] == 0:
             st.success("✅ **Low Risk for Heart Disease**")
@@ -815,7 +825,6 @@ elif selection == "❤️ Heart Disease":
             - Manage stress through yoga, meditation, or hobbies
             - Get 7-9 hours of quality sleep nightly
             - Schedule annual cardiovascular check-ups after age 40
-            - Maintain healthy body weight (BMI 18.5-24.9)
             """)
         else:
             st.error("⚠️ **High Risk for Heart Disease**")
@@ -831,7 +840,6 @@ elif selection == "❤️ Heart Disease":
               - Echocardiogram (heart ultrasound)
               - Cardiac stress test
               - Lipid panel and metabolic tests
-            - Discuss all your results and medical history
             """)
             
             st.write("")
@@ -846,16 +854,11 @@ elif selection == "❤️ Heart Disease":
             **For Blood Pressure:**
             - ACE Inhibitors (Lisinopril, Enalapril)
             - Beta-blockers (Metoprolol, Atenolol)
-            - Calcium Channel Blockers (Amlodipine)
             
             **For Blood Clot Prevention:**
             - Aspirin 75-100mg daily (low-dose)
-            - Clopidogrel if aspirin intolerant
             
-            **For Angina:**
-            - Nitroglycerin (sublingual) as needed
-            
-            ⚠️ Take all medications exactly as prescribed. Do not stop without consulting your doctor.
+            ⚠️ Take all medications exactly as prescribed.
             """)
             
             st.write("")
@@ -866,60 +869,13 @@ elif selection == "❤️ Heart Disease":
             - Saturated fats (fatty meats, full-fat dairy)
             - Excessive salt (limit to 1500-2000mg/day)
             - Processed and deli meats
-            - Fried and fast foods
-            - Sugary drinks and excess sugar
-            
-            **REDUCE:**
-            - Red meat (limit to once weekly)
-            - Egg yolks (max 3-4 per week)
-            - Butter and cheese
-            - Baked goods and pastries
-            - Alcohol consumption
             
             **INCREASE:**
-            - Fatty fish (salmon, mackerel, sardines) - 2-3 times/week
-            - Nuts and seeds (almonds, walnuts, flaxseeds)
+            - Fatty fish (salmon, mackerel) - 2-3 times/week
+            - Nuts and seeds (almonds, walnuts)
             - Extra virgin olive oil
             - Colorful vegetables and leafy greens
-            - Whole grains (oats, quinoa, brown rice)
-            - Legumes (beans, lentils, chickpeas)
-            - Berries and citrus fruits
-            """)
-            
-            st.write("")
-            st.write("**🏃 Essential Lifestyle Modifications:**")
-            st.write("""
-            - **STOP SMOKING IMMEDIATELY** - single most important step
-              - Seek smoking cessation program or nicotine replacement therapy
-            
-            - **Exercise Plan** (consult doctor before starting):
-              - Start with gentle walking (15-20 minutes daily)
-              - Gradually increase to 30-45 minutes most days
-              - Add light resistance training 2-3 times weekly
-              - Avoid sudden intense exertion
-            
-            - **Weight Management:**
-              - If overweight, aim to lose 5-10% of body weight
-              - This can significantly reduce cardiovascular risk
-            
-            - **Stress Reduction:**
-              - Practice daily relaxation (meditation, deep breathing)
-              - Consider cognitive behavioral therapy
-              - Ensure adequate sleep (7-9 hours)
-              - Limit caffeine intake
-            
-            - **Alcohol:** Maximum 1 drink/day (women) or 2/day (men)
-            """)
-            
-            st.write("")
-            st.write("**📊 Regular Monitoring Required:**")
-            st.write("""
-            - Monitor blood pressure daily (keep a log)
-            - Track any new or worsening symptoms
-            - Follow-up with cardiologist every 3-6 months
-            - Annual or bi-annual cardiac stress tests
-            - Regular lipid panel blood tests
-            - Consider home BP monitor and pulse oximeter
+            - Whole grains and legumes
             """)
             
             st.write("")
@@ -929,56 +885,37 @@ elif selection == "❤️ Heart Disease":
             - Pain radiating to arm, jaw, neck, or back
             - Severe shortness of breath
             - Cold sweats with chest discomfort
-            - Sudden extreme weakness or loss of consciousness
-            - Nausea/vomiting with chest pain
-            - Irregular or very rapid heartbeat with dizziness
             
             **DO NOT DRIVE YOURSELF - Call emergency services immediately**
             """)
-            
-            st.write("")
-            st.info("**Important:** Heart disease is highly manageable with proper treatment. Strict adherence to medical advice can significantly improve outcomes and quality of life.")
-
 
 # --- PARKINSON'S PREDICTION PAGE ---
 elif selection == "🧠 Parkinson's":
-    st.title("Parkinson's Disease Risk Assessment")
+    st.title("🧠 Parkinson's Disease Risk Assessment")
     
     with st.expander("📚 About Parkinson's Disease & Common Symptoms", expanded=False):
         st.write("""
         **What is Parkinson's Disease?**
         
         Parkinson's Disease is a progressive neurological disorder that affects movement control due to 
-        loss of dopamine-producing brain cells. It typically develops gradually over years.
+        loss of dopamine-producing brain cells.
         
         **Early Symptoms You Can Identify:**
         
-        - Tremor (shaking) - usually starts in hands or fingers, often when at rest
-        - Slowed movement (bradykinesia) - difficulty initiating movement
-        - Muscle stiffness and rigidity throughout the body
-        - Impaired posture and balance - stooped posture
-        - Loss of automatic movements (reduced blinking, arm swing when walking)
-        - Speech changes (softer voice, slurred, monotone, hesitant)
-        - Writing changes (micrographia - smaller handwriting)
-        - Difficulty with fine motor tasks (buttoning shirts, tying shoes)
-        - Reduced facial expression (mask-like face)
-        - Shuffling walk with small steps
-        
-        **Non-Motor Symptoms:**
-        
-        - Sleep disturbances and daytime drowsiness
-        - Depression and anxiety
-        - Constipation
-        - Loss of sense of smell
-        - Cognitive changes
+        - Tremor (shaking) - usually starts in hands or fingers at rest
+        - Slowed movement (bradykinesia)
+        - Muscle stiffness and rigidity
+        - Impaired posture and balance
+        - Speech changes (softer voice, slurred, monotone)
+        - Writing changes (smaller handwriting)
+        - Reduced facial expression
         
         **Risk Factors:**
         
         - Age 60+ (most common onset)
         - Male gender (1.5x more likely than women)
         - Family history and genetics
-        - Exposure to pesticides or herbicides
-        - Head trauma history
+        - Exposure to pesticides
         """)
     
     st.warning("""
@@ -988,16 +925,14 @@ elif selection == "🧠 Parkinson's":
     
     **These parameters require:**
     - Professional speech-language pathologist evaluation
-    - Specialized voice analysis equipment and software
+    - Specialized voice analysis equipment
     - Clinical neurological voice assessment
     
-    The values provided below are **standard defaults for demonstration purposes**.
-    
-    **For accurate prediction, you MUST use actual medical report data from a voice analysis test.**
+    The values below are **standard defaults for demonstration**. For accurate prediction, you MUST use actual medical report data from a voice analysis test.
     """)
 
     st.write("---")
-    st.subheader("Voice Analysis Parameters (From Medical Report)")
+    st.subheader("🎤 Voice Analysis Parameters (From Medical Report)")
 
     col1, col2, col3 = st.columns(3)
 
@@ -1030,9 +965,9 @@ elif selection == "🧠 Parkinson's":
         ppe = st.number_input("PPE", value=0.206, format="%.6f")
 
     st.write("")
-
+    
     if st.button("🔍 Analyze Parkinson's Risk", key="parkinsons_predict"):
-        with st.spinner("Analyzing vocal metrics..."):
+        with st.spinner("🧠 Analyzing vocal metrics..."):
             time.sleep(1.5)
             
             input_data = [
@@ -1045,7 +980,7 @@ elif selection == "🧠 Parkinson's":
             prediction = parkinsons_model.predict(std_data)
         
         st.write("---")
-        st.subheader("Assessment Result")
+        st.subheader("📋 Assessment Result")
         
         if prediction[0] == 0:
             st.success("✅ **Low Risk for Parkinson's Disease**")
@@ -1056,14 +991,12 @@ elif selection == "🧠 Parkinson's":
             st.write("**Recommended Preventive Actions:**")
             st.write("""
             - Continue regular health check-ups and neurological screenings
-            - Stay physically active with regular exercise (especially aerobic)
-            - Engage in mentally stimulating activities (reading, puzzles, learning)
-            - Maintain strong social connections and relationships
+            - Stay physically active with regular exercise
+            - Engage in mentally stimulating activities
+            - Maintain strong social connections
             - Follow a brain-healthy diet rich in antioxidants
             - Get adequate quality sleep (7-9 hours nightly)
             - Avoid exposure to pesticides and environmental toxins
-            - If you have family history, discuss genetic counseling with doctor
-            - Monitor for any new symptoms as you age, especially after 60
             """)
         else:
             st.error("⚠️ **High Risk for Parkinson's Disease**")
@@ -1080,36 +1013,23 @@ elif selection == "🧠 Parkinson's":
               - Possible brain imaging (MRI or CT scan)
               - DaTscan (dopamine transporter scan) if warranted
             - Consider consultation with movement disorder specialist
-            - Discuss voice analysis results and any symptoms you've noticed
-            - Bring list of all medications you're currently taking
             """)
             
             st.write("")
             st.write("**💊 Medical Treatment Options (If Diagnosed):**")
             st.write("""
-            **Early diagnosis allows for better treatment outcomes. Your neurologist may prescribe:**
-            
             **First-Line Medications:**
             - **Levodopa/Carbidopa (Sinemet)** - Gold standard treatment
               - Most effective for motor symptoms
-              - Dosage typically starts low and increases gradually
               - Take 30-60 minutes before meals for best absorption
             
             **Dopamine Agonists:**
             - Pramipexole (Mirapex) 0.375-4.5mg daily
             - Ropinirole (Requip) 0.25-24mg daily
-            - Often used in younger patients or early stages
             
             **MAO-B Inhibitors:**
             - Selegiline (Eldepryl) 5-10mg daily
             - Rasagiline (Azilect) 0.5-1mg daily
-            - May slow disease progression
-            
-            **For Tremor Control:**
-            - Anticholinergics (Trihexyphenidyl, Benztropine)
-            - Primarily for tremor-dominant Parkinson's
-            
-            **Important:** Medication timing is critical. Follow prescriptions exactly and report all side effects.
             """)
             
             st.write("")
@@ -1123,152 +1043,27 @@ elif selection == "🧠 Parkinson's":
             - Cycling (stationary or outdoor)
             - Tai Chi for balance and flexibility
             - Yoga for strength and posture
-            - Dancing (very beneficial - Rock Steady Boxing program)
+            - Dancing (Rock Steady Boxing program)
             - Strength training 2-3 times weekly
-            
-            **Physical Therapy Focus Areas:**
-            - Gait training and balance exercises
-            - Flexibility and range of motion
-            - Posture correction and core strengthening
-            - Fall prevention strategies
-            - Transfer techniques (getting up from chair, bed)
-            
-            **Occupational Therapy:**
-            - Fine motor skills maintenance
-            - Adaptive strategies for daily activities
-            - Home safety assessment and modifications
-            - Assistive device recommendations
-            """)
-            
-            st.write("")
-            st.write("**🗣️ Speech & Swallowing Therapy:**")
-            st.write("""
-            **LSVT LOUD Program (Highly Recommended):**
-            - Specialized speech therapy for Parkinson's
-            - Improves voice volume and clarity
-            - 4 sessions per week for 4 weeks
-            - Proven effective for voice symptoms
-            
-            **Additional Speech Support:**
-            - Regular speech therapy to maintain vocal function
-            - Swallowing evaluation if experiencing difficulties
-            - Voice exercises and vocal strengthening
-            - Communication strategies and tools
             """)
             
             st.write("")
             st.write("**🍎 Dietary Recommendations:**")
             st.write("""
             **INCREASE:**
-            - Antioxidant-rich foods:
-              - Berries (blueberries, strawberries)
-              - Leafy greens (kale, spinach)
-              - Nuts (walnuts, almonds)
-              - Green tea
+            - Antioxidant-rich foods (berries, leafy greens, nuts)
             - Mediterranean diet pattern
             - Omega-3 fatty acids (salmon, flaxseeds)
             - High-fiber foods (to prevent constipation)
-            - Adequate hydration (8+ glasses water daily)
             
             **IMPORTANT for Levodopa Users:**
             - Take medication 30-60 minutes before meals
             - Avoid high-protein meals close to medication time
-            - Protein can interfere with levodopa absorption
-            - Distribute protein intake throughout the day
-            
-            **Consider Supplements (Consult Doctor):**
-            - Vitamin D (many Parkinson's patients are deficient)
-            - Coenzyme Q10 (may have neuroprotective effects)
-            - Omega-3 supplements
-            - B-complex vitamins
+            - Protein can interfere with absorption
             """)
             
             st.write("")
-            st.write("**🧠 Mental Health & Cognitive Support:**")
-            st.write("""
-            **Depression and anxiety are common in Parkinson's:**
-            - Screen regularly for mood changes
-            - Consider counseling or cognitive behavioral therapy
-            - Antidepressants may be prescribed if needed
-            - Join support groups (local or online)
-            
-            **Cognitive Stimulation:**
-            - Engage in mentally challenging activities
-            - Learn new skills or hobbies
-            - Play strategy games and puzzles
-            - Maintain social interactions
-            - Consider cognitive training programs
-            """)
-            
-            st.write("")
-            st.write("**🏠 Home Safety & Lifestyle Adaptations:**")
-            st.write("""
-            **Fall Prevention:**
-            - Remove tripping hazards (rugs, cords, clutter)
-            - Install grab bars in bathroom
-            - Improve lighting throughout home
-            - Use non-slip mats in shower/tub
-            - Keep floors clear and dry
-            - Consider medical alert system
-            
-            **Daily Living Aids:**
-            - Use assistive devices as needed (cane, walker)
-            - Install raised toilet seat
-            - Use adaptive utensils for eating
-            - Button hooks and zipper pulls
-            - Velcro closures instead of buttons
-            
-            **Sleep Hygiene:**
-            - Maintain regular sleep schedule
-            - Create comfortable sleep environment
-            - Address REM sleep behavior disorder if present
-            - Discuss sleep medications with doctor if needed
-            
-            **Stress Management:**
-            - Practice relaxation techniques (meditation, deep breathing)
-            - Engage in enjoyable activities
-            - Maintain hobbies and interests
-            - Stay connected with friends and family
-            """)
-            
-            st.write("")
-            st.write("**📊 Monitoring & Follow-Up:**")
-            st.write("""
-            - Keep symptom diary (track tremor, stiffness, mobility, mood)
-            - Regular neurological evaluations (every 3-6 months)
-            - Monitor medication effectiveness and side effects
-            - Report any sudden worsening of symptoms
-            - Track "on" and "off" periods if on Levodopa
-            - Stay informed about new treatments and clinical trials
-            """)
-            
-            st.write("")
-            st.write("**🚨 Warning Signs Requiring Immediate Medical Attention:**")
-            st.write("""
-            - Sudden severe worsening of symptoms
-            - Difficulty swallowing or choking episodes
-            - Severe confusion, hallucinations, or delusions
-            - Inability to move (freezing) for extended periods
-            - Frequent falls or severe balance problems
-            - Severe rigidity preventing movement
-            - Signs of medication overdose (dyskinesia - involuntary movements)
-            - Neuroleptic malignant syndrome (fever, confusion, rigid muscles)
-            """)
-            
-            st.write("")
-            st.write("**📚 Important Resources & Support:**")
-            st.write("""
-            - **Parkinson's Foundation:** www.parkinson.org | Helpline: 1-800-4PD-INFO
-            - **Michael J. Fox Foundation:** www.michaeljfox.org
-            - **American Parkinson Disease Association:** www.apdaparkinson.org
-            - **Davis Phinney Foundation:** www.davisphinneyfoundation.org
-            - Look for local support groups and exercise programs
-            - Consider joining clinical trials through Fox Trial Finder
-            """)
-            
-            st.write("")
-            st.info("**Critical Message:** Parkinson's disease progression varies greatly among individuals. With early diagnosis, proper treatment, and especially **consistent exercise**, many people maintain excellent quality of life for years. The actions you take now make a significant difference in your long-term outcomes.")
-
+            st.info("**Critical Message:** Parkinson's disease progression varies greatly. With early diagnosis, proper treatment, and especially **consistent exercise**, many people maintain excellent quality of life for years.")
 
 # --- FOOTER ---
 st.write("---")
@@ -1277,6 +1072,5 @@ st.markdown("""
     <p style='font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;'>GuardianHealth AI Prediction System</p>
     <p style='font-size: 0.95rem; margin-bottom: 0.5rem;'>⚕️ Always consult qualified healthcare professionals for medical decisions</p>
     <p style='font-size: 0.85rem; color: #718096;'>© 2024 GuardianHealth | For Educational and Informational Purposes Only</p>
-    <p style='font-size: 0.8rem; color: #a0aec0; margin-top: 1rem;'>This tool provides risk assessments based on machine learning models and should not replace professional medical advice, diagnosis, or treatment.</p>
 </div>
 """, unsafe_allow_html=True)
