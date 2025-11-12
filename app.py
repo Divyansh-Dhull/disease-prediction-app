@@ -93,49 +93,50 @@ def load_css():
             -webkit-text-fill-color: white;
         }
         
-        /* Hide default radio buttons completely */
-        [data-testid="stSidebar"] [role="radiogroup"] label {
-            display: none !important;
+        /* Style radio buttons as cards */
+        [data-testid="stSidebar"] div[role="radiogroup"] {
+            gap: 0.8rem;
         }
         
-        [data-testid="stSidebar"] input[type="radio"] {
-            display: none !important;
-        }
-        
-        /* Custom navigation cards */
-        .nav-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 1.2rem 1rem;
-            margin: 0.8rem 0;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: center;
+        [data-testid="stSidebar"] div[role="radiogroup"] label {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%) !important;
+            border: 2px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 16px !important;
+            padding: 1.2rem 1rem !important;
+            margin: 0.4rem 0 !important;
+            cursor: pointer !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            text-align: center !important;
             color: #e2e8f0 !important;
-            font-weight: 600;
-            font-size: 1.1rem;
-            backdrop-filter: blur(10px);
+            font-weight: 600 !important;
+            font-size: 1.1rem !important;
+            backdrop-filter: blur(10px) !important;
         }
         
-        .nav-card:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateX(8px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            transform: translateX(8px) scale(1.02) !important;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4) !important;
         }
         
-        .nav-card-active {
+        [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"] div:first-child {
+            display: none !important;
+        }
+        
+        /* Hide radio circle */
+        [data-testid="stSidebar"] input[type="radio"] {
+            opacity: 0 !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+        
+        /* Active state */
+        [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
             border-color: #ffffff !important;
             box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6) !important;
-            transform: translateX(10px) scale(1.05);
-        }
-        
-        .nav-icon {
-            font-size: 1.8rem;
-            margin-bottom: 0.3rem;
-            display: block;
+            transform: translateX(10px) scale(1.05) !important;
         }
         
         /* ========================= BUTTONS ========================= */
@@ -383,7 +384,6 @@ def load_css():
             h1 { font-size: 2rem !important; }
             h2 { font-size: 1.5rem !important; }
             .main .block-container { padding: 2rem 1.5rem; }
-            .nav-card { padding: 1rem; font-size: 1rem; }
         }
     </style>
     """, unsafe_allow_html=True)
@@ -411,31 +411,16 @@ except Exception as e:
     st.error(f"⚠️ Error loading models: {e}")
     st.stop()
 
-# --- CUSTOM NAVIGATION WITH SESSION STATE ---
-if 'page' not in st.session_state:
-    st.session_state.page = "🏠 Home"
-
+# --- SIMPLIFIED NAVIGATION (FIXED FOR DEPLOYMENT) ---
 st.sidebar.title("🩺 GuardianHealth")
 st.sidebar.write("---")
 
-# Custom navigation buttons
-nav_options = ["🏠 Home", "🍬 Diabetes", "❤️ Heart Disease", "🧠 Parkinson's"]
-
-for option in nav_options:
-    active_class = "nav-card-active" if st.session_state.page == option else ""
-    icon = option.split()[0]
-    title = " ".join(option.split()[1:])
-    
-    st.sidebar.markdown(f"""
-    <div class="nav-card {active_class}" onclick="this.click()">
-        <span class="nav-icon">{icon}</span>
-        <div>{title}</div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.sidebar.button(f"nav_{option}", key=f"btn_{option}", label_visibility="collapsed"):
-        st.session_state.page = option
-        st.rerun()
+# Use simple radio button with custom CSS styling
+selection = st.sidebar.radio(
+    "Navigate",
+    ["🏠 Home", "🍬 Diabetes", "❤️ Heart Disease", "🧠 Parkinson's"],
+    label_visibility="collapsed"
+)
 
 st.sidebar.write("---")
 st.sidebar.info(
